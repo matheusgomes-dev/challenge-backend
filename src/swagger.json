@@ -1,0 +1,270 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Challenge Backend",
+    "version": "1.0.0",
+    "title": "Challenge Backend",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "matheusgdeveloper@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://www.github.com"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "users",
+      "description": "System users"
+    },
+    {
+      "name": "token",
+      "description": "Login in API"
+    },
+    {
+      "name": "tools",
+      "description": "System tools"
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Add a new user to the system",
+        "description": "",
+        "operationId": "addUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["users"],
+        "summary": "Get all system users",
+        "description": "",
+        "operationId": "getUsers",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "token",
+            "description": "Token to access the API",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/token": {
+      "post": {
+        "tags": ["token"],
+        "summary": "Makes the login in API",
+        "description": "",
+        "operationId": "",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{ auth: true, token: '' }"
+          }
+        }
+      }
+    },
+    "/tools": {
+      "post": {
+        "tags": ["tools"],
+        "summary": "Add a new tool to the system",
+        "description": "",
+        "operationId": "addTool",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "token",
+            "description": "Token to access the API",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "tool",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Tool"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Tool"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["tools"],
+        "summary": "Get all system tools",
+        "description": "",
+        "operationId": "getTools",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "token",
+            "description": "Token to access the API",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "tag",
+            "description": "Tag value to be filtered",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Tool"
+            }
+          }
+        }
+      }
+    },
+    "/tools/{id}": {
+      "delete": {
+        "tags": ["tools"],
+        "summary": "Remove a system tool",
+        "description": "",
+        "operationId": "deleteTool",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "token",
+            "description": "Token to access the API",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the tool that to be removed",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": ["name", "email", "password"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Token": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Tool": {
+      "type": "object",
+      "required": ["title", "link", "description", "tags"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
