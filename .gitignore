@@ -9,3 +9,5 @@ node_modules/
 .sqlite-journal
 
 .suo
+
+.lock
