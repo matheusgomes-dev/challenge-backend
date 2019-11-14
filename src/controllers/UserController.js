@@ -1,6 +1,6 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-const hashMD5 = require("md5");
+
+const bcrypt = require("bcrypt");
 const HttpStatus = require("http-status-codes");
 
 const ERROR_MESSAGE = HttpStatus.getStatusText(
@@ -12,12 +12,12 @@ module.exports = {
     try {
       const { name, email, password } = req.body;
 
-      let senhaHash = hashMD5(password);
+      let hash = await bcrypt.hash(password, 8);
 
       const user = await User.create({
         name: name,
         email: email,
-        password: senhaHash
+        password: hash
       });
 
       return res.send(user);

@@ -1,17 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const AuthController = require('./controllers/AuthController');
-const ToolController = require('./controllers/ToolController');
-const UserController = require('./controllers/UserController');
+const AuthController = require("./controllers/AuthController");
+const ToolController = require("./controllers/ToolController");
+const UserController = require("./controllers/UserController");
 
-router.post('/token', AuthController.authenticate);
+const AuthMiddleware = require("./middlewares/auth");
 
-router.get('/tools/:tag?', AuthController.verifyJWT, ToolController.get);
-router.post('/tools', AuthController.verifyJWT, ToolController.post);
-router.delete('/tools/:id', AuthController.verifyJWT, ToolController.remove);
+router.post("/token", AuthController.authenticate);
+router.post("/users", UserController.post);
 
-router.post('/users', UserController.post);
-router.get('/users', AuthController.verifyJWT, UserController.get);
+router.use(AuthMiddleware);
+
+router.get("/tools/:tag?", ToolController.get);
+router.post("/tools", ToolController.post);
+router.delete("/tools/:id", ToolController.remove);
+
+router.get("/users", UserController.get);
 
 module.exports = router;
