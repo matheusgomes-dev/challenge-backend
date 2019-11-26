@@ -5,8 +5,8 @@ node_modules/
 .env.local
 .env.staging
 
-.sqlite
-.sqlite-journal
+slnx.sqlite
+slnx.sqlite-journal
 
 .suo
 
