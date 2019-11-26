@@ -3,12 +3,8 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const HttpStatus = require("http-status-codes");
 
-const ERROR_MESSAGE = HttpStatus.getStatusText(
-  HttpStatus.INTERNAL_SERVER_ERROR
-);
-
-module.exports = {
-  post: async (req, res) => {
+class UserController {
+  async addUser(req, res) {
     try {
       const { name, email, password } = req.body;
 
@@ -20,19 +16,25 @@ module.exports = {
         password: hash
       });
 
-      return res.send(user);
+      res.status(HttpStatus.OK).send(user);
     } catch (e) {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(ERROR_MESSAGE);
+      res
+        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: "Server error occurred" });
     }
-  },
+  }
 
-  get: async (req, res) => {
+  async getUsers(req, res) {
     try {
       const users = await User.find({}).sort("name");
 
-      return res.send(users);
+      res.status(HttpStatus.OK).send(users);
     } catch (e) {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(ERROR_MESSAGE);
+      res
+        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: "Server error occurred" });
     }
   }
-};
+}
+
+module.exports = new UserController();

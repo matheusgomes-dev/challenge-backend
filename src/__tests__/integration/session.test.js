@@ -2,8 +2,8 @@ const request = require("supertest");
 
 const app = require("../../app");
 const truncate = require("../utils/truncate");
-const User = require("../../models/User");
 const bcrypt = require("bcrypt");
+const factory = require("../factories");
 
 describe("Authentication", () => {
   beforeEach(async () => {
@@ -13,9 +13,7 @@ describe("Authentication", () => {
   it("should authenticate with valid credentials", async () => {
     const hash = await bcrypt.hash("123456", 8);
 
-    const user = await User.create({
-      name: "Matheus Gomes",
-      email: "matheusgdeveloper@gmail.com",
+    const user = await factory.create("User", {
       password: hash
     });
 
@@ -24,5 +22,33 @@ describe("Authentication", () => {
       .send({ email: user.email, pass: "123456" });
 
     expect(response.status).toBe(200);
+  });
+
+  it("should not authenticate with invalid credentials", async () => {
+    const hash = await bcrypt.hash("123123", 8);
+
+    const user = await factory.create("User", {
+      password: hash
+    });
+
+    const response = await request(app)
+      .post("/token")
+      .send({ email: user.email, pass: "123456" });
+
+    expect(response.status).toBe(401);
+  });
+
+  it("should return jwt token when authenticated", async () => {
+    const hash = await bcrypt.hash("123123", 8);
+
+    const user = await factory.create("User", {
+      password: hash
+    });
+
+    const response = await request(app)
+      .post("/token")
+      .send({ email: user.email, pass: "123123" });
+
+    expect(response.body).toHaveProperty("token");
   });
 });
