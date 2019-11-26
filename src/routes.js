@@ -8,7 +8,7 @@ const UserController = require("./controllers/UserController");
 const AuthMiddleware = require("./middlewares/auth");
 
 router.post("/token", AuthController.authenticate);
-router.post("/users", UserController.post);
+router.post("/users", UserController.addUser);
 
 router.use(AuthMiddleware);
 
@@ -16,6 +16,6 @@ router.get("/tools/:tag?", ToolController.get);
 router.post("/tools", ToolController.post);
 router.delete("/tools/:id", ToolController.remove);
 
-router.get("/users", UserController.get);
+router.get("/users", UserController.getUsers);
 
 module.exports = router;
