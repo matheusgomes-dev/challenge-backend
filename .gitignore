@@ -6,9 +6,8 @@ node_modules/
 .env.staging
 .env.test
 
-slnx.sqlite
-slnx.sqlite-journal
 .sqlite
+.sqlite-journal
 
 .suo
 
