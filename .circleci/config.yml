@@ -57,7 +57,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - production
                 - develop
       - test:
           requires:
@@ -83,4 +83,4 @@ workflows:
             - hold
           filters:
             branches:
-              only: master
+              only: production
