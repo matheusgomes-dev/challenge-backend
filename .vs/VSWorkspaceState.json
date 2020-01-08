@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src"
   ],
-  "SelectedNode": "\\node_modules",
+  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }
