@@ -45,6 +45,7 @@ jobs:
 
     steps:
       - checkout
+      
       - run: yarn dev
 
   deploy-prod:
@@ -54,6 +55,7 @@ jobs:
 
     steps:
       - checkout
+
       - run:
           name: Deploy Master to Heroku
           command: |
