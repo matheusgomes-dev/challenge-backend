@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:9.10.0
+      - image: circleci/node:10.18.1
 
     working_directory: ~/challenge-backend
 
@@ -23,7 +23,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/node:9.10.0
+      - image: circleci/node:10.18.1
 
     working_directory: ~/challenge-backend
 
@@ -40,7 +40,7 @@ jobs:
   # Deploying
   deploy-development:
     docker:
-      - image: circleci/node:9.10.0
+      - image: circleci/node:10.18.1
     working_directory: ~/challenge-backend
 
     steps:
@@ -50,7 +50,7 @@ jobs:
 
   deploy-prod:
     docker:
-      - image: circleci/node:9.10.0
+      - image: circleci/node:10.18.1
     working_directory: ~/challenge-backend
 
     steps:
