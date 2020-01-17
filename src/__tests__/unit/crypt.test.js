@@ -5,7 +5,7 @@ const User = require("../../models/User");
 const truncate = require("../utils/truncate");
 
 describe("Crypt", () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await truncate();
   });
 

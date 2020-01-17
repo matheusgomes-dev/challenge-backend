@@ -3,7 +3,7 @@ const request = require("supertest");
 const app = require("../../app");
 const truncate = require("../utils/truncate");
 const bcrypt = require("bcrypt");
-const factory = require("../factories");
+const User = require("../../models/User");
 
 describe("User", () => {
   beforeAll(async () => {
@@ -25,7 +25,9 @@ describe("User", () => {
   it("should get all users when authenticated", async () => {
     const hash = await bcrypt.hash("123456", 8);
 
-    const user = await factory.create("User", {
+    const user = await User.create({
+      name: "Michele Hermann",
+      email: "Lue.Leannon@yahoo.com",
       password: hash
     });
 

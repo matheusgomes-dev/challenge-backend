@@ -4,16 +4,19 @@ const app = require("../../app");
 const truncate = require("../utils/truncate");
 const bcrypt = require("bcrypt");
 const factory = require("../factories");
+const User = require("../../models/User");
 
 describe("Authentication", () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await truncate();
   });
 
   it("should authenticate with valid credentials", async () => {
     const hash = await bcrypt.hash("123456", 8);
 
-    const user = await factory.create("User", {
+    const user = await User.create({
+      name: "Duncan Gonzales",
+      email: "rexim21920@winmails.net",
       password: hash
     });
 
@@ -27,7 +30,9 @@ describe("Authentication", () => {
   it("should not authenticate with invalid credentials", async () => {
     const hash = await bcrypt.hash("123123", 8);
 
-    const user = await factory.create("User", {
+    const user = await User.create({
+      name: "Robert Lane",
+      email: "golim50066@topmail1.net",
       password: hash
     });
 
@@ -41,7 +46,9 @@ describe("Authentication", () => {
   it("should return jwt token when authenticated", async () => {
     const hash = await bcrypt.hash("123123", 8);
 
-    const user = await factory.create("User", {
+    const user = await User.create({
+      name: "Zaiden Peck",
+      email: "vexobad964@topmail1.net",
       password: hash
     });
 
