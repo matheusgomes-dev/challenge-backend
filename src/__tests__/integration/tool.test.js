@@ -5,16 +5,19 @@ const truncate = require("../utils/truncate");
 const factory = require("../factories");
 const factoryTool = require("../utils/factoryTool");
 const bcrypt = require("bcrypt");
+const User = require("../../models/User");
 
 describe("Tool", () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await truncate(true);
   });
 
   it("should create a new tool when authenticated", async () => {
     const hash = await bcrypt.hash("123456", 8);
 
-    const user = await factory.create("User", {
+    const user = await User.create({
+      name: "Khloe Baird",
+      email: "vohaw68560@top-email.org",
       password: hash
     });
 
@@ -56,7 +59,9 @@ describe("Tool", () => {
   it("should get all tools when authenticated", async () => {
     const hash = await bcrypt.hash("123456", 8);
 
-    const user = await factory.create("User", {
+    const user = await User.create({
+      name: "Aedan Haley",
+      email: "licagi4454@it-smart.org",
       password: hash
     });
 
@@ -82,7 +87,9 @@ describe("Tool", () => {
   it("should remove a tool when authenticated", async () => {
     const hash = await bcrypt.hash("123456", 8);
 
-    const user = await factory.create("User", {
+    const user = await User.create({
+      name: "Amber Love",
+      email: "negabo5389@topmail1.net",
       password: hash
     });
 
@@ -112,7 +119,9 @@ describe("Tool", () => {
   it("should get tools filtered by tag when authenticated", async () => {
     const hash = await bcrypt.hash("123456", 8);
 
-    const user = await factory.create("User", {
+    const user = await User.create({
+      name: "Yahir Gaines",
+      email: "ciyef40613@winmails.net",
       password: hash
     });
 
