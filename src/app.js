@@ -4,6 +4,7 @@ require("dotenv").config({
 
 const express = require("express");
 const mongoose = require("mongoose");
+const truncate = require("./__tests__/utils/truncate");
 
 class AppServer {
   constructor() {
@@ -12,6 +13,8 @@ class AppServer {
     this.middlewares();
     this.routes();
     this.connect();
+
+    truncate().then(done => {});
   }
 
   middlewares() {
