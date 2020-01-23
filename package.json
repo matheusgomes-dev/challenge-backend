@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "set NODE_ENV=test",
-    "test": "jest --runInBand",
+    "test": "jest",
     "posttest": "taskkill /f /im node.exe",
     "dev": "nodemon src/server.js --ignore __tests__",
     "start": "node src/server.js"
