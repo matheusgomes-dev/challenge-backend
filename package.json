@@ -7,7 +7,7 @@
     "pretest": "set NODE_ENV=test",
     "test": "jest --runInBand --verbose --detectOpenHandles --forceExit",
     "dev": "nodemon src/server.js --ignore __tests__",
-    "start": "node src/server.js --ignore __tests__"
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
