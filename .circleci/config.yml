@@ -46,7 +46,7 @@ jobs:
     steps:
       - checkout
 
-      - run: yarn dev
+      - run: yarn start
 
   deploy-prod:
     docker:
