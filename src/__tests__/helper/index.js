@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const truncate = require("../utils/truncate");
+const { MongoMemoryServer } = require("mongodb-memory-server");
 
 require("dotenv").config({
   path: process.env.NODE_ENV === "test" ? ".env.test" : ".env"
@@ -7,11 +7,14 @@ require("dotenv").config({
 
 class TestHelper {
   constructor() {
+    this.server = new MongoMemoryServer();
     this.connection = null;
   }
 
   async start() {
     jest.setTimeout(60000);
+
+    const uri = await this.server.getConnectionString();
 
     const databaseOpts = {
       autoReconnect: true,
@@ -20,18 +23,22 @@ class TestHelper {
       useNewUrlParser: true
     };
 
-    this.connection = await mongoose.connect(
-      process.env.DATABASE_URL,
-      databaseOpts
-    );
+    this.connection = await mongoose.connect(uri, databaseOpts);
   }
 
   async stop() {
-    await this.connection.disconnect();
+    await this.connection.connection.dropDatabase();
+    await this.connection.connection.close();
+    await this.server.stop();
   }
 
   async cleanup() {
-    await truncate();
+    const collections = this.connection.connection.collections;
+
+    for (const col in collections) {
+      const collection = collections[col];
+      await collection.deleteMany();
+    }
   }
 }
 

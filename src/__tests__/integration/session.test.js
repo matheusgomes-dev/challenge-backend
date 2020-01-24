@@ -4,17 +4,13 @@ const bcrypt = require("bcrypt");
 const factory = require("../factories");
 const helper = require("../helper");
 
-let user = {};
-
 describe("Authentication", () => {
   beforeAll(async () => {
-    const hash = await bcrypt.hash("123456", 8);
-
-    user = await factory.create("User", {
-      password: hash
-    });
-
     await helper.start();
+  });
+
+  afterEach(async () => {
+    await helper.cleanup();
   });
 
   afterAll(async () => {
@@ -22,6 +18,12 @@ describe("Authentication", () => {
   });
 
   it("should authenticate with valid credentials", async () => {
+    const hash = await bcrypt.hash("123456", 8);
+
+    user = await factory.create("User", {
+      password: hash
+    });
+
     const response = await request(app)
       .post("/token")
       .send({ email: user.email, pass: "123456" });
@@ -30,6 +32,12 @@ describe("Authentication", () => {
   });
 
   it("should not authenticate with invalid credentials", async () => {
+    const hash = await bcrypt.hash("123456", 8);
+
+    user = await factory.create("User", {
+      password: hash
+    });
+
     const response = await request(app)
       .post("/token")
       .send({ email: user.email, pass: "123123" });
@@ -38,6 +46,12 @@ describe("Authentication", () => {
   });
 
   it("should return jwt token when authenticated", async () => {
+    const hash = await bcrypt.hash("123456", 8);
+
+    user = await factory.create("User", {
+      password: hash
+    });
+
     const response = await request(app)
       .post("/token")
       .send({ email: user.email, pass: "123456" });

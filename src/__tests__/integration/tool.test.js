@@ -5,17 +5,13 @@ const factoryTool = require("../utils/factoryTool");
 const bcrypt = require("bcrypt");
 const helper = require("../helper");
 
-let user = {};
-
 describe("Tool", () => {
   beforeAll(async () => {
-    const hash = await bcrypt.hash("123456", 8);
-
-    user = await factory.create("User", {
-      password: hash
-    });
-
     await helper.start();
+  });
+
+  afterEach(async () => {
+    await helper.cleanup();
   });
 
   afterAll(async () => {
@@ -23,6 +19,12 @@ describe("Tool", () => {
   });
 
   it("should create a new tool when authenticated", async () => {
+    const hash = await bcrypt.hash("123456", 8);
+
+    user = await factory.create("User", {
+      password: hash
+    });
+
     const authentication = await request(app)
       .post("/token")
       .send({ email: user.email, pass: "123456" });
@@ -59,6 +61,12 @@ describe("Tool", () => {
   });
 
   it("should get all tools when authenticated", async () => {
+    const hash = await bcrypt.hash("123456", 8);
+
+    user = await factory.create("User", {
+      password: hash
+    });
+
     const authentication = await request(app)
       .post("/token")
       .send({ email: user.email, pass: "123456" });
@@ -79,6 +87,12 @@ describe("Tool", () => {
   });
 
   it("should remove a tool when authenticated", async () => {
+    const hash = await bcrypt.hash("123456", 8);
+
+    user = await factory.create("User", {
+      password: hash
+    });
+
     const authentication = await request(app)
       .post("/token")
       .send({ email: user.email, pass: "123456" });
@@ -103,6 +117,12 @@ describe("Tool", () => {
   });
 
   it("should get tools filtered by tag when authenticated", async () => {
+    const hash = await bcrypt.hash("123456", 8);
+
+    user = await factory.create("User", {
+      password: hash
+    });
+
     const authentication = await request(app)
       .post("/token")
       .send({ email: user.email, pass: "123456" });

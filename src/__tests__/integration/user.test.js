@@ -4,17 +4,13 @@ const bcrypt = require("bcrypt");
 const helper = require("../helper");
 const factory = require("../factories");
 
-let user = {};
-
 describe("User", () => {
   beforeAll(async () => {
-    const hash = await bcrypt.hash("123456", 8);
-
-    user = await factory.create("User", {
-      password: hash
-    });
-
     await helper.start();
+  });
+
+  afterEach(async () => {
+    await helper.cleanup();
   });
 
   afterAll(async () => {
@@ -34,6 +30,12 @@ describe("User", () => {
   });
 
   it("should get all users when authenticated", async () => {
+    const hash = await bcrypt.hash("123456", 8);
+
+    user = await factory.create("User", {
+      password: hash
+    });
+
     const authentication = await request(app)
       .post("/token")
       .send({ email: user.email, pass: "123456" });
