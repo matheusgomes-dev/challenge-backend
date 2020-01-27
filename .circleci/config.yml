@@ -83,8 +83,8 @@ workflows:
 
       - deploy-development:
           requires:
-            - test
             - build
+            - test
           filters:
             branches:
               only: develop
