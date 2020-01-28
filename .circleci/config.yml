@@ -51,8 +51,6 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      - run: yarn start
-
   deploy-prod:
     docker:
       - image: circleci/node:10.18.1
@@ -81,15 +79,10 @@ workflows:
           requires:
             - build
 
-      - hold:
-          type: approval
-          requires:
-            - test
-
       - deploy-development:
           requires:
-            - test
             - build
+            - test
           filters:
             branches:
               only: develop
@@ -98,7 +91,6 @@ workflows:
           requires:
             - build
             - test
-            - hold
           filters:
             branches:
               only: production
