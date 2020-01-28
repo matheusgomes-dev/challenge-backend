@@ -1,18 +1,18 @@
 const bcrypt = require("bcrypt");
-
-const app = require("../../app");
-const User = require("../../models/User");
-const truncate = require("../utils/truncate");
+const factory = require("../factories");
+const helper = require("../helper");
 
 describe("Crypt", () => {
-  beforeEach(async () => {
-    await truncate();
+  beforeAll(async () => {
+    await helper.start();
+  });
+
+  afterAll(async () => {
+    await helper.stop();
   });
 
   it("should encrypt user password", async () => {
-    const user = await User.create({
-      name: "Matheus",
-      email: "matheusgdeveloper@gmail.com",
+    const user = await factory.create("User", {
       password: "123456"
     });
 

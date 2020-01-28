@@ -1,16 +1,23 @@
 const request = require("supertest");
-
 const app = require("../../app");
-const truncate = require("../utils/truncate");
 const bcrypt = require("bcrypt");
+const helper = require("../helper");
 const factory = require("../factories");
 
 describe("User", () => {
   beforeAll(async () => {
-    await truncate();
+    await helper.start();
   });
 
-  it("should create a user", async () => {
+  afterEach(async () => {
+    await helper.cleanup();
+  });
+
+  afterAll(async () => {
+    await helper.stop();
+  });
+
+  it("should create a user via an http request", async () => {
     const response = await request(app)
       .post("/users")
       .send({
@@ -25,7 +32,7 @@ describe("User", () => {
   it("should get all users when authenticated", async () => {
     const hash = await bcrypt.hash("123456", 8);
 
-    const user = await factory.create("User", {
+    user = await factory.create("User", {
       password: hash
     });
 
@@ -43,7 +50,7 @@ describe("User", () => {
   it("should not get all users when not authenticated", async () => {
     const response = await request(app)
       .get("/users")
-      .set("Authorization", `123456`);
+      .set("Authorization", `Bearer testee`);
 
     expect(response.statusCode).toBe(401);
   });

@@ -3,8 +3,5 @@ const Tool = require("../../models/Tool");
 
 module.exports = async (clearToolsCollection = false) => {
   await User.deleteMany();
-
-  if (clearToolsCollection) {
-    await Tool.deleteMany();
-  }
+  await Tool.deleteMany();
 };
