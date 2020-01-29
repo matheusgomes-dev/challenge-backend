@@ -1,4 +1,4 @@
-Exemplo de API desenvolvida utilizando as tecnologias Node Js + Express Js + Mongoose + Jest **que demonstra como realizar testes automatizados com Jest e um banco de dados em memória.**
+Exemplo de API desenvolvida utilizando as tecnologias Node Js + Express Js + Mongoose + Jest **que demonstra entre outras coisas como realizar testes automatizados com Jest e um banco de dados em memória.**
 
 # Dependências
 O que você precisa para executar esse projeto:
