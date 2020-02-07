@@ -41,7 +41,7 @@ describe("Tool", () => {
       })
       .set("Authorization", `Bearer ${authentication.body.token}`);
 
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(201);
   });
 
   it("should not create a new tool when not authenticated", async () => {
@@ -103,7 +103,7 @@ describe("Tool", () => {
       .delete(`/tools/${tool._id}`)
       .set("Authorization", `Bearer ${authentication.body.token}`);
 
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(204);
   });
 
   it("should not remove a tool when not authenticated", async () => {
