@@ -26,7 +26,7 @@ module.exports = {
     try {
       const tool = await Tool.create(req.body);
 
-      return res.send(tool);
+      return res.status(201).send(tool);
     } catch (error) {
       return res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -38,7 +38,7 @@ module.exports = {
     try {
       await Tool.findByIdAndRemove(req.params.id);
 
-      return res.status(HttpStatus.OK).send("ok");
+      return res.status(204).send("ok");
     } catch (error) {
       return res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)

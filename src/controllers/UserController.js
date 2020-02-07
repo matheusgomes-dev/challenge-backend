@@ -16,7 +16,7 @@ class UserController {
         password: hash
       });
 
-      res.status(HttpStatus.OK).send(user);
+      res.status(201).send(user);
     } catch (e) {
       res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
