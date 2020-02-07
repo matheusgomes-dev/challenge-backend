@@ -38,7 +38,7 @@ module.exports = {
     try {
       await Tool.findByIdAndRemove(req.params.id);
 
-      return res.status(204).send("ok");
+      return res.status(204).send();
     } catch (error) {
       return res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -26,7 +26,7 @@ describe("User", () => {
         password: "123456"
       });
 
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(201);
   });
 
   it("should get all users when authenticated", async () => {
